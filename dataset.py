@@ -22,6 +22,7 @@ class HipHop(Dataset):
         img_path = os.path.join(self.img_path, img_name)
         mask_path = os.path.join(self.mask_path, img_name)
         mask = cv.imread(mask_path)
+        mask[mask == 255.0] = 1.0
         mask = cv.cvtColor(mask, cv.COLOR_BGR2GRAY)
         img = cv.imread(img_path)
         img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
@@ -30,3 +31,7 @@ class HipHop(Dataset):
         img = self.transform(np.asarray(img))
         mask = self.transform(np.asarray(mask))
         return img, mask
+
+
+h = HipHop(utils.img_path, utils.mask_path, utils.transform)
+h.__getitem__(3)
